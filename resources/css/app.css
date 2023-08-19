@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Gabarito";
+    src: url("../Fonts/Gabarito-SemiBold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Gabarito1";
+    src: url("../Fonts/Gabarito-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
