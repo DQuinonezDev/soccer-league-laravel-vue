@@ -22,6 +22,9 @@
                         <li class="nav-item">
                             <router-link :to="{ name: 'leagueView' }" class="nav-link">Leagues</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link :to="{ name: 'teamLeagueView' }" class="nav-link">Relation</router-link>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">

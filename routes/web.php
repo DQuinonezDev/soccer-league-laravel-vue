@@ -18,6 +18,10 @@ Route::resource("/teamLeagues", TeamLeagueController::class);
 
 Route::get('/leagues/{id}/teams', [LeagueController::class, 'showTeamsInLeague']);
 
-Route::get("{any}", function() {
+Route::post('create-matches', [MatchController::class, 'createMatches']);
+
+Route::get('get-matches', [MatchController::class, 'getMatches']);
+
+Route::get("{any}", function () {
     return view('welcome');
 })->where("any", ".*");
