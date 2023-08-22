@@ -16,5 +16,8 @@ Route::resource("/leagues", LeagueController::class);
 
 Route::resource("/teamLeagues", TeamLeagueController::class);
 
+Route::get('/leagues/{id}/teams', [LeagueController::class, 'showTeamsInLeague']);
 
-
+Route::get("{any}", function() {
+    return view('welcome');
+})->where("any", ".*");

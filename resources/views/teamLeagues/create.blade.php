@@ -3,7 +3,7 @@
 <main class="container mt-5">
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
-            <h1 class="card-title mb-0 text-center">Create Teams</h1>
+            <h1 class="card-title mb-0 text-center">Add a team to a league</h1>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -17,24 +17,34 @@
                 </div>
             @endif
 
-            <form action="{{ url('teams') }}" method="post">
+            <form action="{{ url('teamLeagues') }}" method="post">
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name of the Team</label>
-                    <input type="text" name="name" id="name" value="{{ old('name') }}"
-                        class="form-control" placeholder="Insert the name of the team">
+                    <label for="league_id" class="form-label">Id League</label>
+                    <div>
+                        <select name="league_id" id="league_id" class="form-select" required>
+
+                            <option value="">Select the League</option>
+                            @foreach ($leagues as $league)
+                                <option value="{{ $league->id }}">{{ $league->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
+
                 <div class="mb-3">
-                    <label for="country" class="form-label">Country</label>
-                    <input type="text" name="country" id="country" value="{{ old('country') }}"
-                        class="form-control" placeholder="Insert the country of the team">
+                    <label for="team_id" class="form-label">Id Team</label>
+                    <div>
+                        <select name="team_id" id="team_id" class="form-select" required>
+
+                            <option value="">Select the team</option>
+                            @foreach ($teams as $team)
+                                <option value="{{ $team->id }}"> {{ $team->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="img" class="form-label">Image URL</label>
-                    <input type="text" name="img" id="img" value="{{ old('img') }}"
-                        class="form-control" placeholder="Insert image URL" ">
-                </div>
-                
+
                 <div class="d-flex justify-content-end">
                     <a href="/" class="btn btn-outline-danger me-2">Cancel</a>
                     <button type="submit" class="btn btn-success">Save</button>
@@ -61,10 +71,4 @@
     .btn-outline-danger {
         border-radius: 10px;
     }
-
-    
-    
-    
 </style>
-
-

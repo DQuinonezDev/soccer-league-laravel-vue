@@ -44,7 +44,8 @@ class TeamController extends Controller
         $team->img = $request->input('img');
         $team->save();
 
-        return view("teams.message", ['msg' => "Registro guardado"]);
+        return redirect('/');
+
     }
 
     /**

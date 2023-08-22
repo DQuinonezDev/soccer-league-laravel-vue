@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\TeamLeague;
 use App\Http\Controllers\Controller;
+use App\Models\League;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class TeamLeagueController extends Controller
@@ -22,7 +24,7 @@ class TeamLeagueController extends Controller
      */
     public function create()
     {
-        //
+        return view('teamLeagues.create', ['teams' => Team::all()] , ['leagues' => League::all()]);
     }
 
     /**
@@ -30,9 +32,19 @@ class TeamLeagueController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'team_id' => 'required|exists:teams,id',
+            'league_id' => 'required|exists:leagues,id',
+        ]);
 
+        $teamLeague = new TeamLeague();
+
+        $teamLeague->team_id = $request->input('team_id');
+        $teamLeague->league_id = $request->input('league_id');
+        $teamLeague->save();
+
+        return redirect('/');
+    }
     /**
      * Display the specified resource.
      */

@@ -9,7 +9,8 @@ class Team extends Model
 {
     use HasFactory;
 
-    public function teamL() {
-        return $this->hasOne(TeamLeague::class, 'team_id', 'id');
+    public function leagues()
+    {
+        return $this->belongsToMany(League::class, 'team_leagues', 'team_id', 'league_id');
     }
 }

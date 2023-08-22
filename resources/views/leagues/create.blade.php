@@ -3,7 +3,7 @@
 <main class="container mt-5">
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
-            <h1 class="card-title mb-0 text-center">Create Teams</h1>
+            <h1 class="card-title mb-0 text-center">Create League</h1>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -17,18 +17,14 @@
                 </div>
             @endif
 
-            <form action="{{ url('teams') }}" method="post">
+            <form action="{{ url('leagues') }}" method="post">
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name of the Team</label>
+                    <label for="name" class="form-label">Name of the League</label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}"
-                        class="form-control" placeholder="Insert the name of the team">
+                        class="form-control" placeholder="Insert the name of the League">
                 </div>
-                <div class="mb-3">
-                    <label for="country" class="form-label">Country</label>
-                    <input type="text" name="country" id="country" value="{{ old('country') }}"
-                        class="form-control" placeholder="Insert the country of the team">
-                </div>
+               
                 <div class="mb-3">
                     <label for="img" class="form-label">Image URL</label>
                     <input type="text" name="img" id="img" value="{{ old('img') }}"
