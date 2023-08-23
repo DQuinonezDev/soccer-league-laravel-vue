@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'create-matches', // Agrega aquí las rutas que quieres excluir de la verificación CSRF
+        'create-matches',
+        'teams' // Agrega aquí las rutas que quieres excluir de la verificación CSRF
     ];
 }

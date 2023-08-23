@@ -55,6 +55,8 @@ async function deleteLeague(id) {
 </script>
   
 <style scoped>
+
+
 .teams-view {
     max-width: 1200px;
     margin: 0 auto;
