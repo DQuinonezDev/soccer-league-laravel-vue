@@ -14,7 +14,6 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
                             <router-link :to="{ name: 'teamView' }" class="nav-link">Teams</router-link>
@@ -25,21 +24,10 @@
                         <li class="nav-item">
                             <router-link :to="{ name: 'teamLeagueView' }" class="nav-link">Relation</router-link>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Leagues
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Liga 1</a></li>
-                                <li><a class="dropdown-item" href="#">Liga 2</a></li>
-                                <li><a class="dropdown-item" href="#">Liga 3</a></li>
-                                <!-- Agrega más ligas si es necesario -->
-                            </ul>
-                        </li>
+                        
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Matches</a>
+                            <a class="nav-link" href="/matches">Matches</a>
                         </li>
                     </ul>
 

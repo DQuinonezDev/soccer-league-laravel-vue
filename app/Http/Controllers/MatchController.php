@@ -8,13 +8,30 @@ use Illuminate\Http\Request;
 
 class MatchController extends Controller
 {
-
     public function createMatches(Request $request)
     {
-        $matchesData = $request->input('matches');
-        $createdMatches = Matches::insert($matchesData);
-        return response()->json($createdMatches, 201);
+        try {
+            $matchesData = $request->input('matches');
+    
+            $createdMatches = [];
+            foreach ($matchesData as $matchData) {
+                $createdMatch = Matches::create([
+                    'home_team_id' => $matchData['ida']['home_team_id'],
+                    'away_team_id' => $matchData['ida']['away_team_id'],
+                ]);
+                $createdMatches[] = $createdMatch;
+            }
+    
+            return response()->json($createdMatches, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+
+
+
+
+
 
     public function getMatches()
     {

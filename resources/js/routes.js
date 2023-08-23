@@ -1,17 +1,13 @@
 const TeamView = () => import('../src/Components/teams/TeamsView.vue');
 const LeagueView = () => import('../src/Components/leagues/LeagueView.vue');
-const Home = () => import('../src/Components/principal/Home.vue');
 const Relation = () => import('../src/Components/TeamsLeagues/TeamsLeagueView.vue');
+const Matches = () => import('../src/Components/Matches/Matches.vue');
 
 export const routes = [
-    {
-        name: 'home',
-        path: '/',
-        component: Home
-    },
+    
     {
         name: 'teamView',
-        path: '/teamsList',
+        path: '/',
         component: TeamView
     },
     {
@@ -23,6 +19,11 @@ export const routes = [
         name: 'teamLeagueView',
         path: '/leagueTeams',
         component: Relation
+    },
+    {
+        name: 'matches',
+        path: '/matches',
+        component: Matches
     },
 ];
 
