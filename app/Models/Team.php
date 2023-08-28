@@ -8,9 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     use HasFactory;
-
-    public function leagues()
+    public function partidosComoLocal()
     {
-        return $this->belongsToMany(League::class, 'team_leagues', 'team_id', 'league_id');
+        return $this->hasMany(Partido::class, 'equipo_local_id');
+    }
+
+    public function partidosComoVisitante()
+    {
+        return $this->hasMany(Partido::class, 'equipo_visitante_id');
+    }
+    public function league()
+    {
+        return $this->belongsTo(League::class);
     }
 }

@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class League extends Model
 {
+    use HasFactory;
 
-    public function teamL() {
-        return $this->belongsToMany(Team::class, 'team_leagues', 'league_id', 'team_id');
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
 
+    public function partidos()
+    {
+        return $this->hasMany(Partido::class, 'liga_id');
     }
 }

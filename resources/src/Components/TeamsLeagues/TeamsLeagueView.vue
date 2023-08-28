@@ -1,68 +1,66 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <h1 class="title"></h1>
-      <a href="/teamLeagues/create" class="create-league-button">Create Relation</a>
-    </div>
+  <div class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto p-6">
+      <div class="bg-white rounded-lg shadow-md p-6 space-y-6">
+        <div class="flex items-center justify-between">
+          <h1 class="text-3xl font-bold text-gray-800">{{ title }}</h1>
+          <a href="/teamLeagues/create" class="bg-blue-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-blue-600 transition">Create Relation</a>
+        </div>
 
-    <div class="filter-container">
-      <select v-model="selectedLeague" @change="updateFilteredTeams" class="league-select">
-        <option value="">Select a league</option>
-        <option v-for="league in leagues" :key="league.id" :value="league.id">{{ league.name }}</option>
-      </select>
-      <button v-if="selectedLeague && !hasGeneratedMatches[selectedLeague]" @click="createRandomMatches" class="action-button">
-        Create Matches
-      </button>
-      <button v-if="hasGeneratedMatches[selectedLeague]" @click="saveMatchesToLocal" class="action-button">
-        Save Matches
-      </button>
-    </div>
+        <div class="flex items-center space-x-4">
+          <select v-model="selectedLeague" @change="updateFilteredTeams" class="w-64 py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-600">
+            <option value="">Select a league</option>
+            <option v-for="league in leagues" :key="league.id" :value="league.id">{{ league.name }}</option>
+          </select>
+          <button v-if="selectedLeague && !hasGeneratedMatches[selectedLeague]" @click="createRandomMatches" class="bg-green-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-green-600 transition">Create Matches</button>
+          <button v-if="hasGeneratedMatches[selectedLeague]" @click="saveMatchesToLocal" class="bg-indigo-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-indigo-600 transition">Save Matches</button>
+        </div>
+      </div>
 
-    <div class="table-container">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th v-if="!selectedLeague">League</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="teamLeague in filteredTeamsLeagues" :key="teamLeague.id">
-            <td>{{ getTeamName(teamLeague.team_id) }}</td>
-            <td v-if="!selectedLeague">{{ getLeagueName(teamLeague.league_id) }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="py-3 px-6 text-left font-semibold text-gray-700">Team</th>
+              <th v-if="!selectedLeague" class="py-3 px-6 text-left font-semibold text-gray-700">League</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600">
+            <tr v-for="teamLeague in filteredTeamsLeagues" :key="teamLeague.id">
+              <td class="py-4 px-6 border-b">{{ getTeamName(teamLeague.team_id) }}</td>
+              <td v-if="!selectedLeague" class="py-4 px-6 border-b">{{ getLeagueName(teamLeague.league_id) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <h2>Matches</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mt-8">Matches</h2>
 
-    <div class="table-container">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>first Match</th>
-            <th>Second Match</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(match, index) in generatedMatches" :key="index">
-            <td>{{ match.ida.home_team_name }} - {{ match.ida.away_team_name }}</td>
-            <td>{{ match.vuelta.home_team_name }} - {{ match.vuelta.away_team_name }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="py-3 px-6 text-left font-semibold text-gray-700">First Match</th>
+              <th class="py-3 px-6 text-left font-semibold text-gray-700">Second Match</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-600">
+            <tr v-for="(match, index) in generatedMatches" :key="index">
+              <td class="py-4 px-6 border-b">{{ match.ida.home_team_name }} - {{ match.ida.away_team_name }}</td>
+              <td class="py-4 px-6 border-b">{{ match.vuelta.home_team_name }} - {{ match.vuelta.away_team_name }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
-
-
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 
-const title = ref('Lista de Equipos');
+const title = ref('Lista de Equiposs');
 const teams = ref([]);
 const leagues = ref([]);
 const teamsLeagues = ref([]);
@@ -75,19 +73,18 @@ const saveMatchesToLocal = () => {
   const matchesKey = `generatedMatches${selectedLeagueId}`;
 
   const savedMatches = localStorage.getItem(matchesKey) ? JSON.parse(localStorage.getItem(matchesKey)) : [];
-  savedMatches.push(...generatedMatches.value);
+  savedMatches.push(...generatedMatches.value.map(match => ({ ...match, league_id: selectedLeagueId })));
 
   localStorage.setItem(matchesKey, JSON.stringify(savedMatches));
   console.log('Partidos guardados en localStorage para la liga:', selectedLeagueId);
 
   hasGeneratedMatches.value[selectedLeagueId] = true;
-}
-
+};
 const loadMatchesFromLocalStorage = (leagueId) => {
   const matchesKey = `generatedMatches${leagueId}`;
   const savedMatches = localStorage.getItem(matchesKey);
   return savedMatches ? JSON.parse(savedMatches) : [];
-}
+};
 
 onMounted(() => {
   fetchTeams();
@@ -177,10 +174,10 @@ const createRandomMatches = () => {
     }
   }
 
-  const savedMatches = loadMatchesFromLocalStorage('all') || [];
+  const savedMatches = loadMatchesFromLocalStorage(selectedLeagueId) || [];
   savedMatches.push(...matches);
 
-  localStorage.setItem('generatedMatches', JSON.stringify(savedMatches));
+  localStorage.setItem(`generatedMatches${selectedLeagueId}`, JSON.stringify(savedMatches));
   generatedMatches.value = savedMatches;
 
   console.log('Partidos generados y guardados:', generatedMatches.value);
@@ -188,85 +185,54 @@ const createRandomMatches = () => {
   hasGeneratedMatches.value[selectedLeagueId] = true;
 };
 </script>
+
 <style scoped>
 .container {
-  text-align: center;
-  padding: 20px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.title {
-  font-size: 32px;
-  font-weight: bold;
-  color: #333;
+  padding: 1.5rem;
 }
 
 .create-league-button {
-  background-color: #ff7f50;
-  color: white;
-  font-weight: bold;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .create-league-button:hover {
-  background-color: #ff6347;
-}
-
-.filter-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
+  background-color: #2563eb;
 }
 
 .league-select {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-right: 12px;
-  font-size: 18px;
-  font-family: Gabarito1;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  font-size: 1rem;
 }
 
 .action-button {
-  background-color: #4caf50;
-  color: white;
-  font-weight: bold;
-  padding: 12px 24px;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.375rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-weight: bold;
 }
 
 .action-button:hover {
-  background-color: #45a049;
+  filter: brightness(90%);
 }
+
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  font-family: Gabarito1;
+  margin-top: 1.5rem;
 }
 
 .data-table th,
 .data-table td {
-  border: 1px solid #ccc;
-  padding: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
   text-align: left;
-  font-size: 16px;
-  background-color: #f2f2f2;
+  font-size: 1rem;
+  background-color: #f7fafc;
 }
 
 .data-table th {
@@ -274,10 +240,10 @@ const createRandomMatches = () => {
 }
 
 h2 {
-  font-size: 26px;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-top: 30px;
-  margin-bottom: 18px;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
   color: #333;
 }
 </style>

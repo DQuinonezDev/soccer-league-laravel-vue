@@ -1,7 +1,7 @@
 <template>
     <div class="teams-list">
         <h1 class="teams-list__title">Team List</h1>
-        <a href="/teams/create" class="create-team-button">Create Team</a>
+        <a href="/createTeams" class="create-team-button">Create Team</a>
 
         <div class="team-cards">
             <team-card v-for="team in teams" :key="team.id" :team="team" :deleteTeam="deleteTeam" />

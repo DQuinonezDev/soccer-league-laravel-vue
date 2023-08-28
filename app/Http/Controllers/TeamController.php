@@ -44,8 +44,7 @@ class TeamController extends Controller
         $team->img = $request->input('img');
         $team->save();
 
-        return redirect('/');
-
+        return response()->json(['message' => 'Team created successfully'], 200);
     }
 
     /**
@@ -64,7 +63,6 @@ class TeamController extends Controller
         $team = Team::find($id);
         return view('teams.edit', [
             'team' => $team
-            //Si necesito un fk se pone tambien asi, 'niveles' => Nivel::all()
         ]);
     }
 
@@ -78,14 +76,15 @@ class TeamController extends Controller
             'country' => 'required|max:25',
             'img' => 'max:10000',
         ]);
-
+    
         $team = Team::find($id);
-
+    
         $team->name = $request->input('name');
         $team->country = $request->input('country');
         $team->img = $request->input('img');
         $team->save();
-        return redirect('/');
+    
+        return response()->json(['message' => 'Team updated successfully'], 200);
     }
 
     /**

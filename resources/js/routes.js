@@ -2,6 +2,9 @@ const TeamView = () => import('../src/Components/teams/TeamsView.vue');
 const LeagueView = () => import('../src/Components/leagues/LeagueView.vue');
 const Relation = () => import('../src/Components/TeamsLeagues/TeamsLeagueView.vue');
 const Matches = () => import('../src/Components/Matches/Matches.vue');
+const CreateTeams = () => import('../src/Components/teams/CreateTeams.vue');
+const EditTeams = () => import('../src/Components/teams/EditTeams.vue');
+import { createRouter, createWebHistory } from 'vue-router';
 
 export const routes = [
     
@@ -25,5 +28,21 @@ export const routes = [
         path: '/matches',
         component: Matches
     },
+    {
+        name: 'createTeams',
+        path: '/createTeams',
+        component: CreateTeams
+    },
+    {
+        name: 'editTeams',
+        path: '/teams/:id/edit',
+                component: EditTeams,
+        props: true
+    },
 ];
 
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+  });

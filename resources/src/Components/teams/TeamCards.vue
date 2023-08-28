@@ -1,15 +1,19 @@
 <template>
-    <div class="team-card">
-      <div class="team-card__image">
-        <img :src="team.img" alt="Team's Shield" class="team-card__image-content">
+    <div class="team-card bg-white shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition duration-300">
+      <div class="relative h-40 w-full flex items-center justify-center bg-gradient-to-br">
+        <img :src="team.img" alt="Team's Shield" class="h-3/4">
       </div>
-      <div class="team-card__content">
-        <h3 class="team-card__name">{{ team.name }}</h3>
-        <p class="team-card__country">{{ team.country }}</p>
+      <div class="p-4">
+        <h3 class="text-xl font-semibold text-gray-800 ">{{ team.name }}</h3>
+        <p class="text-gray-500 text-sl">{{ team.country }}</p>
       </div>
-      <div class="team-card__actions">
-        <a :href="'/teams/' + team.id + '/edit'" class="team-card__edit-btn"><i class="bi bi-pencil"></i> Edit</a>
-        <button @click="deleteTeam(team.id)" class="team-card__delete-btn"><i class="bi bi-trash3-fill"></i> Delete</button>
+      <div class="flex items-center justify-end p-4 border-t border-gray-300">
+        <button @click="deleteTeam(team.id)" class="btn-danger">
+          Delete
+        </button>
+        <a :href="'/teams/' + team.id + '/edit'" class="btn-primary ml-2">
+          Edit
+        </a>
       </div>
     </div>
   </template>
@@ -24,101 +28,14 @@
   </script>
   
 <style scoped>
-.team-card__image {
-    position: relative;
-    overflow: hidden;
-    height: 100px;
-    border-radius: 10px 10px 0 0;
+.btn-primary {
+  @apply bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-blue-600;
 }
 
-.team-card__image-content {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.btn-danger {
+  @apply bg-red-500 text-white px-4 py-2 rounded-lg transition-colors duration-300 hover:bg-red-600;
 }
-
-.team-card__content {
-    padding: 15px;
-}
-
-.team-card__name {
-    font-size: 16px;
-    margin: 0;
-    margin-top: 10px;
-    color: #333;
-    transition: color 0.2s;
-}
-
-.team-card__name:hover {
-    color: #007bff;
-}
-
-.team-card__country {
-    color: #888;
-    margin-top: 5px;
-    font-size: 14px;
-    font-family: Gabarito1;
-}
-
-.team-card__actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-}
-
-.team-card__edit-btn,
-.team-card__delete-btn {
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s, color 0.2s;
-    flex-grow: 1;
-    text-align: center;
-    margin: 0 5px;
-}
-
-.team-card__edit-btn {
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-}
-
-.team-card__edit-btn:hover {
-    background-color: #0056b3;
-}
-
-.team-card__delete-btn {
-    background-color: #dc3545;
-    color: #fff;
-}
-
-.team-card__delete-btn:hover {
-    background-color: #a71d2a;
-}
-
-@media screen and (max-width: 768px) {
-    .team-cards {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
-    }
-}
-
-/* Adjust font sizes and spacing for smaller screens */
-@media screen and (max-width: 480px) {
-   
-
-    .team-card__name {
-        font-size: 14px;
-        margin-top: 5px;
-    }
-
-    .team-card__country {
-        font-size: 12px;
-    }
-}
+.text-gray-500 {
+    color: #777;
+  }
 </style>
-  

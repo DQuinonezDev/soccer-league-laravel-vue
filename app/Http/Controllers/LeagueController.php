@@ -13,7 +13,7 @@ class LeagueController extends Controller
     {
         $league = League::findOrFail($id);
         
-        $teams = $league->teamL->map(function ($team) {
+        $teams = $league->teams->map(function ($team) {
             return $team;
         });
         
@@ -106,4 +106,7 @@ class LeagueController extends Controller
 
         $league->delete();
     }
+
+
+    
 }

@@ -1,6 +1,8 @@
 @extends('layout/template')
 
+
 <main class="container">
+    
     <div class="card">
         <div class="card-header bg-primary text-white py-3">
             <h1 class="mb-0">Edit Teams</h1>

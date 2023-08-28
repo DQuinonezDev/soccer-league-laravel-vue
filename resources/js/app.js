@@ -1,5 +1,6 @@
 import { createApp} from 'vue';
 import App from "../src/App.vue";
+import Navbar from '../src/Components/navbar/NavBar.vue'; // Asegúrate de proporcionar la ruta correcta
 
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from './routes';
@@ -11,7 +12,6 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 });
-
 const app = createApp(App);
 app.use(router);
 
