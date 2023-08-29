@@ -22,27 +22,27 @@
                     <ul
                         class="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-blue-500 md:dark:bg-transparent dark:border-gray-700">
                         <li>
-                            <router-link :to="{ name: 'teamView' }" class="block py-2 pl-3
-                     pr-4
-                      text-white  rounded md:bg-transparent
-                        md:p-0  md:dark:bg-transparent md:hover:text-[#ffd363] dark:hover:bg-blue-800"
-                                >Teams</router-link>
+                            <router-link :to="{ name: 'teamView' }"
+                                class="block py-2 pl-3
+                            pr-4
+                            text-white  rounded md:bg-transparent
+                            md:p-0  md:dark:bg-transparent md:hover:text-[#ffd363] dark:hover:bg-blue-800">Teams</router-link>
                         </li>
                         <li>
                             <router-link :to="{ name: 'leagueView' }" class="block py-2 pl-3 pr-4 text-gray-900 rounded
-                     hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#ffd363] md:p-0
-                      dark:text-white  dark:hover:bg-blue-800
-                       dark:hover:text-white md:dark:hover:bg-transparent">Leagues</router-link>
+                        hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#ffd363] md:p-0
+                        dark:text-white  dark:hover:bg-blue-800
+                        dark:hover:text-white md:dark:hover:bg-transparent">Leagues</router-link>
                         </li>
                         <li>
                             <router-link :to="{ name: 'teamLeagueView' }" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0
                             md:hover:text-[#ffd363]  md:p-0 dark:text-white dark:hover:bg-blue-800
-                      dark:hover:text-white md:dark:hover:bg-transparent">Relation</router-link>
+                            dark:hover:text-white md:dark:hover:bg-transparent">Relation</router-link>
                         </li>
                         <li>
-                            <a href="/matches" class="block py-2 pl-3 pr-4 text-gray-900 rounded
-                              hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white md:hover:text-[#ffd363] dark:hover:bg-blue-800
-                                dark:hover:text-white md:dark:hover:bg-transparent">Matches</a>
+                            <router-link :to="{ name: 'matches' }" class="block py-2 pl-3 pr-4 text-gray-900 rounded
+                                hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white md:hover:text-[#ffd363] dark:hover:bg-blue-800
+                                dark:hover:text-white md:dark:hover:bg-transparent">Matches</router-link>
                         </li>
                     </ul>
                 </div>

@@ -1,78 +1,68 @@
 <template>
-  <div class="bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Matches</h1>
-    <div class="overflow-x-auto">
-      <table class="min-w-full border rounded-lg overflow-hidden">
-        <thead class="bg-blue-500 text-white">
-          <tr>
-            <th class="py-4 px-6 text-lg font-semibold text-left">League</th>
-            <th class="py-4 px-6 text-lg font-semibold text-center">First Match</th>
-            <th class="py-4 px-6 text-lg font-semibold text-center">Second Match</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(match, index) in storedMatches" :key="index" class="bg-white">
-            <td class="py-6 px-6 border-b">
-              <div class="text-lg font-semibold text-gray-800">{{ match.league_name }}</div>
-            </td>
-            <td class="py-6 px-6 border-b">
-              <div class="flex items-center justify-center space-x-4">
-                <div class="text-xl font-semibold text-blue-600">{{ match.ida.home_team_name }}</div>
-                <div class="text-base text-gray-600">vs</div>
-                <div class="text-xl font-semibold text-blue-600">{{ match.ida.away_team_name }}</div>
-              </div>
-            </td>
-            <td class="py-6 px-6 border-b">
-              <div class="flex items-center justify-center space-x-4">
-                <div class="text-xl font-semibold text-blue-600">{{ match.vuelta.home_team_name }}</div>
-                <div class="text-base text-gray-600">vs</div>
-                <div class="text-xl font-semibold text-blue-600">{{ match.vuelta.away_team_name }}</div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="bg-gray-100 min-h-screen p-6">
+    <h1 class="text-2xl font-bold mb-4">Lista de partidos por liga</h1>
+    <div v-for="league in leagues" :key="league.id" class="mb-6">
+      <h2 class="text-xl font-semibold mb-2">{{ league.name }}</h2>
+      <ul class="list-disc list-inside ml-6 space-y-2">
+        <li v-for="match in getMatchesForLeague(league.id)" :key="match.id">
+          {{ getTeamName(match.homeTeam_id) }} vs {{ getTeamName(match.awayTeam_id) }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
-
-
-
 <script setup>
-import { computed } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
-const storedMatches = computed(() => {
-  const allMatches = [];
+const matches = ref([]);
+const teams = ref([]);
+const leagues = ref([]);
 
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key.includes('generatedMatches')) {
-      const savedMatches = localStorage.getItem(key);
-      const matches = savedMatches ? JSON.parse(savedMatches) : [];
-      const leagueId = key.replace('generatedMatches', ''); // Extract league ID from the key
-      const leagueName = getLeagueName(leagueId);
-      const matchesWithLeagueName = matches.map(match => ({
-        ...match,
-        league_name: leagueName // Add league name to each match
-      }));
-      allMatches.push(...matchesWithLeagueName);
-    }
+onMounted(matchesView);
+
+async function matchesView() {
+  try {
+    const response = await axios.get('/matches');
+    matches.value = response.data;
+    fetchTeams();
+    fetchLeagues(); // Fetch leagues after fetching matches
+  } catch (error) {
+    console.error(error);
   }
+}
 
-  return allMatches;
-});
+async function fetchTeams() {
+  try {
+    const response = await axios.get('/teams');
+    teams.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-const leagues = [
-  { id: 1, name: 'Liga A' },
-  { id: 2, name: 'Liga B' },
-  { id: 3, name: 'Liga C' },
-  // ... (agregar más ligas si es necesario)
-];
+async function fetchLeagues() {
+  try {
+    const response = await axios.get('/leagues');
+    leagues.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-const getLeagueName = leagueId => {
-  const league = leagues.find(league => league.id === parseInt(leagueId));
-  return league ? league.name : '';
+const getTeamName = teamId => {
+  const team = teams.value.find(team => team.id === teamId);
+  return team ? team.name : '';
+};
+
+
+const getTeamNameImg = teamId => {
+  const team = teams.value.find(team => team.id === teamId);
+  return team ? team.img : '';
+};
+
+const getMatchesForLeague = leagueId => {
+  return matches.value.filter(match => match.league_id === leagueId);
 };
 </script>
-

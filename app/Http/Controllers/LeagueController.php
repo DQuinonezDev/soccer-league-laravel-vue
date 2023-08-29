@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\League;
 use App\Http\Controllers\Controller;
+use App\Models\Partido;
 use Illuminate\Http\Request;
 
 class LeagueController extends Controller
@@ -97,6 +98,11 @@ class LeagueController extends Controller
         return redirect('/');
     }
 
+   
+
+    // Función para generar partidos aleatorios entre equipos
+   
+
     /**
      * Remove the specified resource from storage.
      */
@@ -108,5 +114,4 @@ class LeagueController extends Controller
     }
 
 
-    
 }

@@ -25,7 +25,7 @@ export const routes = [
     },
     {
         name: 'matches',
-        path: '/matches',
+        path: '/matchess',
         component: Matches
     },
     {

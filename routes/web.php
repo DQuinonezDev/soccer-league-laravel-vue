@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\LeagueController;
+use App\Http\Controllers\MatchesController;
 use App\Http\Controllers\TeamLeagueController;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Expr\Match_;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,7 +15,11 @@ Route::get('/', function () {
 Route::resource("/teams", TeamController::class);
 
 Route::resource("/leagues", LeagueController::class);
-Route::post('/leagues/{id}/generar-partidos', 'LeagueController@generarPartidos'); 
+Route::resource("/matches", MatchesController::class);
+
+
+
+Route::post('/leagues/{id}/generar-partidos', [LeaguesController::class, 'generar-partidos']); 
 Route::get('/leagues/{id}/teams', [LeagueController::class, 'showTeamsInLeague']);
 
 Route::resource("/teamLeagues", TeamLeagueController::class);
