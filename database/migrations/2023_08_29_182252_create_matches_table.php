@@ -24,7 +24,11 @@ return new class extends Migration
             $table->foreign('awayTeam_id')->references('id')->on('teams');
             
             $table->date('match_date');
-
+            $table->time('match_time');
+            
+            $table->unsignedBigInteger('first_leg_id')->nullable();
+            $table->foreign('first_leg_id')->references('id')->on('matches');
+            
 
             $table->timestamps();
             $table->unique(['league_id', 'homeTeam_id', 'awayTeam_id']);
