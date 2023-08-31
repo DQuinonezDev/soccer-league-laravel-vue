@@ -16,6 +16,9 @@ class VerifyCsrfToken extends Middleware
         'teams',
         'leagues',
         'teamLeagues',
-        'matches' // Agrega aquí las rutas que quieres excluir de la verificación CSRF
+        'matches/*/*',
+        'matches/*',
+        'matches/generate/*'
+         // Agrega aquí las rutas que quieres excluir de la verificación CSRF
     ];
 }

@@ -16,7 +16,9 @@ Route::resource("/teams", TeamController::class);
 
 Route::resource("/leagues", LeagueController::class);
 Route::resource("/matches", MatchesController::class);
+Route::post('matches/generate/{leagueId}', [MatchesController::class, 'generateMatchesForLeague']);
 
+Route::put('/matches/{id}/generate-result', [MatchesController::class, 'generateRandomResult']);
 
 
 Route::post('/leagues/{id}/generar-partidos', [LeaguesController::class, 'generar-partidos']); 

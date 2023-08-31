@@ -29,7 +29,9 @@ return new class extends Migration
             $table->unsignedBigInteger('first_leg_id')->nullable();
             $table->foreign('first_leg_id')->references('id')->on('matches');
             
-
+            $table->integer('home_team_score')->nullable();
+            $table->integer('away_team_score')->nullable();
+            
             $table->timestamps();
             $table->unique(['league_id', 'homeTeam_id', 'awayTeam_id']);
         });

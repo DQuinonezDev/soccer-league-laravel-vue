@@ -1,12 +1,12 @@
 <template>
     <div class="bg-white rounded-lg shadow-md overflow-hidden ">
-      <div class="aspect-w-16 aspect-h-9">
+      <div class="aspect-w-16 aspect-h-9 justify-center flex">
         <img :src="league.img" alt="Team's Shield" class="object-cover">
       </div>
       <div class="p-4">
-        <h3 class="text-xl font-semibold text-gray-800">{{ league.name }}</h3>
+        <h3 class="text-xl font-semibold text-center text-gray-800">{{ league.name }}</h3>
       </div>
-      <div class="flex items-center justify-end p-3 bg-gray-100 rounded-b-lg">
+      <div class="flex items-center justify-center p-3 bg-gray-100 rounded-b-lg">
         <a :href="'/leagues/' + league.id + '/edit'" class="btn btn-primary btn-lg">
           Edit
         </a>
