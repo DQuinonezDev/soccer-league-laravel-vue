@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Matches;
 use App\Http\Controllers\Controller;
+use App\Models\Clasification;
 use App\Models\TeamLeague;
 use Illuminate\Http\Request;
 
@@ -40,16 +41,75 @@ class MatchesController extends Controller
             return response()->json(['message' => 'Match not found'], 404);
         }
 
-        $homeScore = rand(0, 7); // Generar un resultado al azar para el equipo local
-        $awayScore = rand(0, 7); // Generar un resultado al azar para el equipo visitante
+        $homeScore = rand(0, 7);
+        $awayScore = rand(0, 7);
 
         $match->home_team_score = $homeScore;
         $match->away_team_score = $awayScore;
         $match->save();
 
+        // Actualizar la tabla de clasificaciones
+        $homeTeam = Clasification::where('team_id', $match->homeTeam_id)
+            ->where('league_id', $match->league_id)->first();
+
+        if (!$homeTeam) {
+            $homeTeam = new Clasification();
+            $homeTeam->team_id = $match->homeTeam_id;
+            $homeTeam->league_id = $match->league_id;
+            // Establecer otros valores iniciales
+            $homeTeam->save();
+        }
+
+        $awayTeam = Clasification::where('team_id', $match->awayTeam_id)
+            ->where('league_id', $match->league_id)->first();
+
+        if (!$awayTeam) {
+            $awayTeam = new Clasification();
+            $awayTeam->team_id = $match->awayTeam_id;
+            $awayTeam->league_id = $match->league_id;
+
+            // Establecer otros valores iniciales
+            $awayTeam->save();
+        }
+
+        // Actualizar estadísticas de los equipos
+        $homeTeam->played++;
+        $awayTeam->played++;
+        $homeTeam->goals_for += $homeScore;
+        $homeTeam->goals_against += $awayScore;
+        $awayTeam->goals_for += $awayScore;
+        $awayTeam->goals_against += $homeScore;
+
+        // Calcular la diferencia de goles
+        $homeGoalDifference = $homeTeam->goals_for - $homeTeam->goals_against;
+        $awayGoalDifference = $awayTeam->goals_for - $awayTeam->goals_against;
+
+        // Actualizar la diferencia de goles
+        $homeTeam->goal_difference = $homeGoalDifference;
+        $awayTeam->goal_difference = $awayGoalDifference;
+
+        // Actualizar los resultados del partido
+        if ($homeScore > $awayScore) {
+            $homeTeam->won++;
+            $homeTeam->points += 3;
+            $awayTeam->lost++;
+        } elseif ($homeScore == $awayScore) {
+            $homeTeam->drawn++;
+            $homeTeam->points += 1;
+            $awayTeam->drawn++;
+            $awayTeam->points += 1;
+        } else {
+            $homeTeam->lost++;
+            $awayTeam->won++;
+            $awayTeam->points += 3;
+        }
+
+        // Guardar los cambios en las estadísticas de los equipos
+        $homeTeam->save();
+        $awayTeam->save();
+
         return response()->json(['message' => 'Random result generated and updated'], 200);
     }
-
     /**
      * Store a newly created resource in storage.
      */

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Clasification;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\MatchesController;
@@ -19,6 +20,7 @@ Route::resource("/matches", MatchesController::class);
 Route::post('matches/generate/{leagueId}', [MatchesController::class, 'generateMatchesForLeague']);
 
 Route::put('/matches/{id}/generate-result', [MatchesController::class, 'generateRandomResult']);
+Route::get('/clasification', [Clasification::class, 'index']);
 
 
 Route::post('/leagues/{id}/generar-partidos', [LeaguesController::class, 'generar-partidos']); 

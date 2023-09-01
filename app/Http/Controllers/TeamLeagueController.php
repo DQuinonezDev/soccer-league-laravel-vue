@@ -43,7 +43,7 @@ class TeamLeagueController extends Controller
         $teamLeague->league_id = $request->input('league_id');
         $teamLeague->save();
 
-        return redirect('/');
+        return redirect('/leagueTeams');
     }
     /**
      * Display the specified resource.
