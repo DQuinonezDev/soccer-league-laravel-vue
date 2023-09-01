@@ -1,6 +1,5 @@
 <template>
   <div class="bg-gray-100 min-h-screen p-6">
-    <h1 class="text-3xl font-semibold mb-8">Lista de partidos por liga</h1>
     <div class="mb-4">
       <div class="mb-4">
         <button @click="generateAllResults" :disabled="areAllResultsGenerated || generatingAllResults"
