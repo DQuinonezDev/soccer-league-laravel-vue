@@ -5,10 +5,10 @@
       <div class="mb-4">
         <button @click="generateAllResults" :disabled="areAllResultsGenerated || generatingAllResults"
           class="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring">
-Generate all results
+          Generate all results
         </button>
       </div>
-  
+
       <div class="mb-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div v-for="(match) in sortedMatches" :key="match.id"
