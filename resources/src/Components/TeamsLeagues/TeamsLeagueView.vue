@@ -52,8 +52,8 @@ const title = ref('List of teams in leagues');
 const leagues = ref([]);
 const selectedLeague = ref('');
 const generatedMatches = ref([]);
-const teams = ref([]); // Define teams
-const teamsLeagues = ref([]); // Define teamsLeagues
+const teams = ref([]); 
+const teamsLeagues = ref([]); 
 
 onMounted(() => {
   leaguesView();

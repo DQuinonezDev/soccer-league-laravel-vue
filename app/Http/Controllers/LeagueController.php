@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\League;
 use App\Http\Controllers\Controller;
-use App\Models\Partido;
 use Illuminate\Http\Request;
 
 class LeagueController extends Controller
