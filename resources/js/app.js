@@ -4,7 +4,7 @@ import Navbar from '../src/Components/navbar/NavBar.vue'; // Asegúrate de propo
 
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from './routes';
-
+import 'flowbite';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
